@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Platform configuration{% endblock %}
+{% block content %}
+
+<br/>
+<h1 align="center">Add new platform</h1>
+<br/>
+
+<form method="POST">
+	<br/>
+	<div class="form-group">
+		<label for="text">Platform name</label>
+		<input type="text" class="form-control" id="platform" name="platform" placeholder="Enter platform name">
+	</div>
+	<div class="form-group">
+		<label for="text">IP address</label>
+		<input type="text" class="form-control" id="ipAddress" name="ipAddress" placeholder="Enter IP address">
+	</div>
+	<div align="center">
+		<button type="submit" class="btn btn-primary">Add platform</button>
+	</div>
+	<br/>
+</form>
+
+{% endblock %}

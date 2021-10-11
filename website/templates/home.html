@@ -22,7 +22,7 @@
 			<td class="text-center">{{ test_pc.status }}</td>
 			{% if test_pc.status == "Free" %}
 			<td class="text-center">
-				<form method="POST" action="/reserve">
+				<form method="POST" action="/reserve-test-pc">
 					<input type="hidden" id="testPcId" name="testPcId" value="{{ test_pc.id }}">
 					<input type="hidden" id="userId" name="userId" value="{{ user.id }}">
 					<button type="submit" class="btn btn-primary">Reserve</button>
@@ -32,6 +32,48 @@
 			<td class="text-center">
 				<form method="POST" action="/free-pc">
 					<input type="hidden" id="testPcId" name="testPcId" value="{{ test_pc.id }}">
+					<button type="submit" class="btn btn-danger">Free</button>
+				</form>
+			</td>
+			{% else %}
+			<td class="text-center"></td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<br/>
+<h1 align="center">Platforms</h1>
+<br/>
+
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col" class="text-center">Platform name</th>
+			<th scope="col" class="text-center">IP address</th>
+			<th scope="col" class="text-center">Status</th>
+			<th scope="col" class="text-center">Reservation</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for platform in platform_list %}
+		<tr>
+			<th scope="row" class="text-center">{{ platform.name }}</th>
+			<td class="text-center">{{ platform.ip_address }}</td>
+			<td class="text-center">{{ platform.status }}</td>
+			{% if platform.status == "Free" %}
+			<td class="text-center">
+				<form method="POST" action="/reserve-platform">
+					<input type="hidden" id="platformId" name="platformId" value="{{ platform.id }}">
+					<input type="hidden" id="userId" name="userId" value="{{ user.id }}">
+					<button type="submit" class="btn btn-primary">Reserve</button>
+				</form>
+			</td>
+			{% elif platform.status == user.user_name %}
+			<td class="text-center">
+				<form method="POST" action="/free-platform">
+					<input type="hidden" id="platformId" name="platformId" value="{{ platform.id }}">
 					<button type="submit" class="btn btn-danger">Free</button>
 				</form>
 			</td>
