@@ -1,5 +1,46 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block content %}
 
 <br/>
 <h1 align="center">Test PCs</h1>
+<br/>
+
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col" class="text-center">Test PC name</th>
+			<th scope="col" class="text-center">IP address</th>
+			<th scope="col" class="text-center">Status</th>
+			<th scope="col" class="text-center">Reservation</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for test_pc in test_pc_list %}
+		<tr>
+			<th scope="row" class="text-center">{{ test_pc.name }}</th>
+			<td class="text-center">{{ test_pc.ip_address }}</td>
+			<td class="text-center">{{ test_pc.status }}</td>
+			{% if test_pc.status == "Free" %}
+			<td class="text-center">
+				<form method="POST" action="/reserve">
+					<input type="hidden" id="testPcId" name="testPcId" value="{{ test_pc.id }}">
+					<input type="hidden" id="userId" name="userId" value="{{ user.id }}">
+					<button type="submit" class="btn btn-primary">Reserve</button>
+				</form>
+			</td>
+			{% elif test_pc.status == user.user_name %}
+			<td class="text-center">
+				<form method="POST" action="/free-pc">
+					<input type="hidden" id="testPcId" name="testPcId" value="{{ test_pc.id }}">
+					<button type="submit" class="btn btn-danger">Free</button>
+				</form>
+			</td>
+			{% else %}
+			<td class="text-center"></td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}
